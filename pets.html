@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Pets - Pawsome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --fg: #2d2a26;
+            --muted: #7a746b;
+            --accent: #c4704b;
+            --accent-light: #e8a88a;
+            --card: #ffffff;
+            --border: #e5e0d8;
+            --forest: #3d5a47;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--card);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(45, 42, 38, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--forest);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--forest);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 10rem 2rem 4rem;
+            background: linear-gradient(180deg, var(--forest) 0%, #2d4a37 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            opacity: 0.85;
+            font-size: 1.1rem;
+        }
+
+        /* Pets Grid */
+        .pets-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: -2rem auto 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .pet-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(45, 42, 38, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .pet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(45, 42, 38, 0.15);
+        }
+
+        .pet-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 3rem;
+        }
+
+        .pet-card h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.6rem;
+            color: var(--forest);
+            margin-bottom: 0.5rem;
+        }
+
+        .pet-card .breed-count {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .pet-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pet-card .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--forest);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .pet-card .btn:hover {
+            background: #2d4a37;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--fg);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .pets-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .pet-card {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Staggered Animation */
+        .pet-card {
+            animation: slideUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .pet-card:nth-child(1) { animation-delay: 0.1s; }
+        .pet-card:nth-child(2) { animation-delay: 0.2s; }
+        .pet-card:nth-child(3) { animation-delay: 0.3s; }
+        .pet-card:nth-child(4) { animation-delay: 0.4s; }
+        .pet-card:nth-child(5) { animation-delay: 0.5s; }
+        .pet-card:nth-child(6) { animation-delay: 0.6s; }
+        .pet-card:nth-child(7) { animation-delay: 0.7s; }
+        .pet-card:nth-child(8) { animation-delay: 0.8s; }
+        .pet-card:nth-child(9) { animation-delay: 0.9s; }
+        .pet-card:nth-child(10) { animation-delay: 1s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Paw<span>some</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pets.html" class="active">Pets</a></li>
+                <li><a href="pet-details.html">Pet Details</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <h1>All Pet Types</h1>
+        <p>Discover 10 amazing pet categories with detailed breed information</p>
+    </section>
+
+    <section class="pets-section">
+        <div class="pets-grid">
+            <div class="pet-card">
+                <div class="pet-icon">&#128021;</div>
+                <h3>Dogs</h3>
+                <span class="breed-count">6 Breeds Available</span>
+                <p>Man's best friend. Loyal, loving, and endlessly devoted companions for families and individuals alike.</p>
+                <a href="pet-details.html" class="btn">View Breeds</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#128008;</div>
+                <h3>Cats</h3>
+                <span class="breed-count">6 Breeds Available</span>
+                <p>Elegant and independent. Cats bring grace and companionship to any home with their unique personalities.</p>
+                <a href="pet-details.html" class="btn">View Breeds</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#128038;</div>
+                <h3>Birds</h3>
+                <span class="breed-count">5 Species Available</span>
+                <p>Beautiful and melodious. Pet birds fill your home with song and vibrant colors.</p>
+                <a href="pet-details.html" class="btn">View Species</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#128031;</div>
+                <h3>Fish</h3>
+                <span class="breed-count">5 Varieties Available</span>
+                <p>Peaceful and mesmerizing. An aquarium brings tranquility and natural beauty to any space.</p>
+                <a href="pet-details.html" class="btn">View Varieties</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#128048;</div>
+                <h3>Rabbits</h3>
+                <span class="breed-count">5 Breeds Available</span>
+                <p>Gentle and social. Rabbits make wonderful indoor pets with their affectionate nature.</p>
+                <a href="pet-details.html" class="btn">View Breeds</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#128057;</div>
+                <h3>Hamsters</h3>
+                <span class="breed-count">5 Types Available</span>
+                <p>Small and energetic. Perfect for beginners, hamsters are entertaining and easy to care for.</p>
+                <a href="pet-details.html" class="btn">View Types</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#128034;</div>
+                <h3>Turtles</h3>
+                <span class="breed-count">5 Species Available</span>
+                <p>Calm and long-lived. Turtles are fascinating pets that can be companions for decades.</p>
+                <a href="pet-details.html" class="btn">View Species</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#129436;</div>
+                <h3>Parrots</h3>
+                <span class="breed-count">5 Species Available</span>
+                <p>Intelligent and vocal. Parrots form deep bonds and can learn to speak and perform tricks.</p>
+                <a href="pet-details.html" class="btn">View Species</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#128000;</div>
+                <h3>Guinea Pigs</h3>
+                <span class="breed-count">5 Breeds Available</span>
+                <p>Social and vocal. Guinea pigs are gentle creatures that love interaction and companionship.</p>
+                <a href="pet-details.html" class="btn">View Breeds</a>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet-icon">&#128014;</div>
+                <h3>Horses</h3>
+                <span class="breed-count">5 Breeds Available</span>
+                <p>Majestic and powerful. Horses offer a unique bond and are perfect for those with space and passion.</p>
+                <a href="pet-details.html" class="btn">View Breeds</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>2024 Pawsome Pet Guide. Made with care for pet lovers everywhere.</p>
+        <p><a href="contact.html">Get in Touch</a> | <a href="index.html">Back Home</a></p>
+    </footer>
+</body>
+</html>
